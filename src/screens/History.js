@@ -9,7 +9,7 @@ const History = ({navigation}) => {
   const {data} = useSelector(state => state.requestReducer);
   // console.log(data)
   useEffect(() => {
-    dispatch({type: 'get-request', payload: {navigation}});
+    dispatch({type: 'request-get', payload: {navigation}});
   }, []);
 
   return (
@@ -26,12 +26,13 @@ const History = ({navigation}) => {
             return(
               <View style={styles.cardWrapper}>
                 <CardHistory
-                  title="Dompet BPJS"
+                  title="History claim"
                   width="84%"
                   height="20%"
                   date={list?.createdAt}
                   currentStatus={list?.status}
                   desc={list?.description}
+                  bp={list?.bp}
                   navigation={navigation}
                 />
               </View>

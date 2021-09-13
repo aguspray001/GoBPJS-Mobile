@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, {useState} from 'react';
 import {
   ScrollView,
@@ -9,7 +10,7 @@ import {
 import {TextInput} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {IconSplash} from '../assets/icon';
-import {Button} from '../components';
+import {Button, DatePicker} from '../components';
 import {showMessage} from '../constant/alert';
 import {colors} from '../constant/colors';
 import {secureGetData} from '../constant/storage';
@@ -22,6 +23,9 @@ const Register = ({navigation}) => {
   const [birthDate, setBirthDate] = useState('');
   const [noNIK, setNoNIK] = useState('');
   const [noBPJS, setNoBPJS] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -48,9 +52,24 @@ const Register = ({navigation}) => {
       } else {
         showMessage('Konfirmasi password tidak cocok', 'error');
       }
-    }else{
+    } else {
       showMessage('Kesalahan pada pengisian data registrasi', 'error');
     }
+  };
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+    setBirthDate(moment(currentDate).format('YYYY-MM-DD').toString());
+  };
+  const showMode = currentMode => {
+    setShow(true);
+    setMode(currentMode);
+  };
+
+  const showDatepicker = () => {
+    showMode('date');
   };
 
   return (
@@ -73,17 +92,22 @@ const Register = ({navigation}) => {
           outlineColor={colors.primary}
           mode="outlined"
           theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
-          label="Tanggal"
-          onChangeText={e => setBirthDate(e)}
-        />
-        <TextInput
-          style={styles.textInput}
-          outlineColor={colors.primary}
-          mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
           label="NIK"
           onChangeText={e => setNoNIK(e)}
         />
+        <TouchableOpacity onPress={() => showDatepicker()}>
+          <TextInput
+            style={styles.textInput}
+            outlineColor={colors.primary}
+            mode="outlined"
+            theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+            label="Tanggal Lahir"
+            value={birthDate}
+            onFocus={() => showDatepicker()}
+            onChangeText={e => setBirthDate(e)}
+          />
+        </TouchableOpacity>
+        {show && <DatePicker onChange={onChange} date={date} />}
         <TextInput
           style={styles.textInput}
           outlineColor={colors.primary}
@@ -106,6 +130,7 @@ const Register = ({navigation}) => {
           mode="outlined"
           theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
           label="Password"
+          secureTextEntry={true}
           onChangeText={e => setPassword(e)}
         />
         <TextInput
@@ -114,6 +139,7 @@ const Register = ({navigation}) => {
           mode="outlined"
           theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
           label="Re-Password"
+          secureTextEntry={true}
           onChangeText={e => setRePassword(e)}
         />
         <View style={{alignSelf: 'center', marginTop: 40}}>

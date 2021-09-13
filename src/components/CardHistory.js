@@ -13,6 +13,7 @@ const CardHistory = ({
   date,
   currentStatus,
   desc,
+  bp,
   width,
   height,
 }) => {
@@ -34,6 +35,13 @@ const CardHistory = ({
         <View style={styles.valueWrapper}>
           <Text> :</Text>
           <Text> {desc}</Text>
+        </View>
+      </View>
+      <View style={styles.textWrapper}>
+        <Text>Blood Pressure</Text>
+        <View style={styles.valueWrapper}>
+          <Text> :</Text>
+          <Text> {bp}</Text>
         </View>
       </View>
       <View style={{position: 'absolute', right: 10, top: 15}}>
