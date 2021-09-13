@@ -6,20 +6,21 @@ import {Provider as PaperProvider} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {secureGetData} from './constant/storage';
 import {RootStack} from './navigation';
-import {Loading} from './screens';
+import {Loading, Splash} from './screens';
 // import {Loading} from './screens';
 
 // Ignore all log notifications:
 LogBox.ignoreAllLogs();
 
 const MainApp = () => {
-  const [signed, setSigned] = React.useState('');
+  const [signed, setSigned] = React.useState(null);
+  const [show, setShow] = React.useState(false);
   const {loader} = useSelector(state => state.globalReducer);
 
   React.useEffect(async () => {
     await secureGetData('token')
       .then(r => {
-        console.log(r);
+        setShow(true)
         setSigned(r);
       })
       .catch(e => e);
@@ -28,10 +29,10 @@ const MainApp = () => {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <RootStack isLogin={signed === ''? false : true} />
+        <RootStack isLogin={signed!==null||signed!==''?true:false} />
         <FlashMessage position="top" duration={3000} hideStatusBar={false} />
       </NavigationContainer>
-      {loader&&<Loading/>}
+      {loader||show===false&&<Loading/>}
     </PaperProvider>
   );
 };
