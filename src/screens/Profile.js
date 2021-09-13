@@ -1,18 +1,11 @@
 import jwtDecode from 'jwt-decode';
 import React, {useEffect} from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {Avatar, Modal, Portal} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
-import {useDispatch, useSelector} from 'react-redux';
-import {hospitalBg, hospital2Bg} from '../assets/images';
-import {Banner, Button} from '../components';
+import {useDispatch} from 'react-redux';
+import {hospital2Bg} from '../assets/images';
+import {Button} from '../components';
 import Card from '../components/Card';
 import {colors} from '../constant/colors';
 import {secureGetData} from '../constant/storage';
@@ -80,7 +73,7 @@ const Profile = ({navigation}) => {
           title="Sign Out"
           width="45%"
           height="5.8%"
-          onPress={() => dispatch({type:'sign-out', payload:{navigation}})}
+          onPress={() => dispatch({type: 'sign-out', payload: {navigation}})}
         />
       </View>
       <Portal>

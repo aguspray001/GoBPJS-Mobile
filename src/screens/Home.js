@@ -1,36 +1,30 @@
 import jwtDecode from 'jwt-decode';
-import React, { useEffect } from 'react';
-import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import React, {useEffect} from 'react';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {Avatar, Modal, Portal} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
-import { useSelector } from 'react-redux';
-import {hospitalBg, hospital2Bg} from '../assets/images';
+import {hospital2Bg} from '../assets/images';
 import {Banner} from '../components';
 import Card from '../components/Card';
 import {colors} from '../constant/colors';
-import { secureGetData } from '../constant/storage';
+import {secureGetData} from '../constant/storage';
 
 const Home = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
-  const [user, setUser] = React.useState('')
-  const [statusUser, setStatusUser] = React.useState(null)
+  const [user, setUser] = React.useState('');
+  const [statusUser, setStatusUser] = React.useState(null);
 
   useEffect(() => {
-    secureGetData('token').then(r=>{
-      const decodedToken = jwtDecode(r);
-      setUser(decodedToken.user.name)
-      setStatusUser(decodedToken.user.status)
+    secureGetData('token')
+      .then(r => {
+        const decodedToken = jwtDecode(r);
+        setUser(decodedToken.user.name);
+        setStatusUser(decodedToken.user.status);
+      })
+      .catch(e => e);
+  }, []);
 
-    }).catch(e=>e)
-  }, [])
-
-  console.log(user)
+  console.log(user);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -63,7 +57,11 @@ const Home = ({navigation}) => {
           />
           <Text style={styles.name}>{user}</Text>
           <Text style={styles.status}>
-            Status BPJS :<Text style={{fontWeight: '700'}}> {statusUser === 1? 'Aktif':'Tidak Aktif'}</Text>
+            Status BPJS :
+            <Text style={{fontWeight: '700'}}>
+              {' '}
+              {statusUser === 1 ? 'Aktif' : 'Tidak Aktif'}
+            </Text>
           </Text>
         </View>
         <View style={styles.cardWrapper}>
@@ -95,15 +93,23 @@ const Home = ({navigation}) => {
           visible={visible}
           onDismiss={hideModal}
           contentContainerStyle={modalStyle}>
-          <Text style={{marginBottom: 20, paddingHorizontal:20, textAlign:'center'}}>{statusUser===1? "Scan this barcode":"Barcode tidak dapat digenerate, status anda non-aktif"}</Text>
-          {
-            statusUser === 1 &&
+          <Text
+            style={{
+              marginBottom: 20,
+              paddingHorizontal: 20,
+              textAlign: 'center',
+            }}>
+            {statusUser === 1
+              ? 'Scan this barcode'
+              : 'Barcode tidak dapat digenerate, status anda non-aktif'}
+          </Text>
+          {statusUser === 1 && (
             <QRCode
-            value="Just some string value"
-            logoSize={60}
-            logoBackgroundColor="transparent"
+              value="Just some string value"
+              logoSize={60}
+              logoBackgroundColor="transparent"
             />
-          }
+          )}
         </Modal>
       </Portal>
     </View>
