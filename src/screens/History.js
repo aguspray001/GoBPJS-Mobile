@@ -1,44 +1,56 @@
 import React, {useEffect} from 'react';
-import {ScrollView, StyleSheet, View, Text} from 'react-native';
+import {ScrollView, StyleSheet, View, Text, RefreshControl} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardHistory, Button} from '../components';
 import {colors} from '../constant/colors';
 
 const History = ({navigation}) => {
   const dispatch = useDispatch();
+  const [refreshing, setRefreshing] = React.useState(false);
   const {data} = useSelector(state => state.requestReducer);
-  // console.log(data)
+  const wait = timeout => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch({type: 'request-get', payload: {navigation}});
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   useEffect(() => {
     dispatch({type: 'request-get', payload: {navigation}});
   }, []);
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      showsVerticalScrollIndicator={false}>
+      <Text style={{textAlign:'center', marginTop:40, marginBottom:-20, fontSize:16, fontWeight:'500'}}>History Pengajuan Klaim BPJS</Text>
       <View style={styles.content}>
-        <Button
-          title="Refresh"
-          width="45%"
-          height="5.8%"
-          onPress={()=>dispatch({type: 'request-get', payload: {navigation}})}
-        />
-        { data?.length > 0 ?
-          data?.map(list=>{
-            return(
-              <View style={styles.cardWrapper}>
+        {data?.length > 0 ? (
+          data?.map(list => {
+            return (
                 <CardHistory
                   title="History claim"
                   width="84%"
-                  height="20%"
+                  height="30%"
+                  mb={10}
                   date={list?.createdAt}
                   currentStatus={list?.status}
                   desc={list?.description}
                   bp={list?.bp}
                   navigation={navigation}
                 />
-              </View>
-            )
-          }): <Text style={{marginTop:200, fontSize:16, color:'grey'}}>Tidak ada catatan history</Text>
-        }
+            );
+          })
+        ) : (
+          <Text style={{marginTop: 200, fontSize: 16, color: 'grey'}}>
+            Tidak ada catatan history
+          </Text>
+        )}
       </View>
     </ScrollView>
   );
@@ -55,8 +67,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingVertical: 50,
-  },
-  cardWrapper: {
-    padding: 10,
   },
 });
