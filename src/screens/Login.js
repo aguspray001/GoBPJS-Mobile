@@ -33,7 +33,7 @@ const Login = ({navigation}) => {
         style={styles.textInput}
         outlineColor={colors.primary}
         mode="outlined"
-        theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+        theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
         label="Email"
         onChangeText={(e)=>setEmail(e)}
       />
@@ -41,7 +41,7 @@ const Login = ({navigation}) => {
         style={styles.textInput}
         outlineColor={colors.primary}
         mode="outlined"
-        theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+        theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
         label="Password"
         secureTextEntry={true}
         onChangeText={(e)=>setPassword(e)}

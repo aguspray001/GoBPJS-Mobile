@@ -83,7 +83,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="Nama Lengkap"
           onChangeText={e => setName(e)}
         />
@@ -91,7 +91,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="NIK"
           onChangeText={e => setNoNIK(e)}
         />
@@ -100,7 +100,7 @@ const Register = ({navigation}) => {
             style={styles.textInput}
             outlineColor={colors.primary}
             mode="outlined"
-            theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+            theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
             label="Tanggal Lahir"
             value={birthDate}
             onFocus={() => showDatepicker()}
@@ -112,7 +112,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="Nomor BPJS"
           onChangeText={e => setNoBPJS(e)}
         />
@@ -120,7 +120,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="Email"
           onChangeText={e => setEmail(e)}
         />
@@ -128,7 +128,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="Password"
           secureTextEntry={true}
           onChangeText={e => setPassword(e)}
@@ -137,7 +137,7 @@ const Register = ({navigation}) => {
           style={styles.textInput}
           outlineColor={colors.primary}
           mode="outlined"
-          theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
+          theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
           label="Re-Password"
           secureTextEntry={true}
           onChangeText={e => setRePassword(e)}
