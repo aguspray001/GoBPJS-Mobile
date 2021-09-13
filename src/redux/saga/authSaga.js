@@ -32,7 +32,7 @@ function* doSignIn({payload}) {
         payload: {user, token: token},
       });
       yield showMessage('Login Berhasil', 'success');
-      yield navigation.replace('Home');
+      yield navigation.reset({index: 0, routes: [{name: 'Home'}]});
     }
   } catch (error) {
     yield showMessage('Terjadi kesalahan saat login', 'error');
@@ -42,10 +42,9 @@ function* doSignIn({payload}) {
 
 function* doSignUp({payload}) {
   const {email, password, name, ttl, nik, no_bpjs, navigation} = payload;
-
-  yield put({type: 'show-loader'});
-
   try {
+    yield put({type: 'show-loader'});
+
     const resp = yield call(doPost, {
       data: {
         email,
@@ -54,36 +53,39 @@ function* doSignUp({payload}) {
         ttl,
         nik,
         no_bpjs,
-        role_id: 4,
-        organization_id: 4,
+        role_id: 4, //role peserta
+        organization_id: 4, //waluyo
+        status: 1, //aktif
       },
       url: signupUrl,
     });
     console.log('resp regis:', resp);
+
     if (resp) {
       yield showMessage('Register berhasil', 'success');
       navigation.replace('Login');
+      yield put({type: 'hide-loader'});
     }
   } catch (error) {
     yield showMessage('Terjadi kesalahan saat registrasi', 'error');
+    yield put({type: 'hide-loader'});
   }
 }
 
 function* doSignOut({payload}) {
   const {navigation} = payload;
-  console.log('do signout');
-  const token = yield select(state => state.authReducer);
+  console.log('do signout', navigation);
+  const {token} = yield select(state => state.authReducer);
   console.log('logout:', token);
   if (token) {
-    yield put({type: 'show-loader'});
     yield call(secureStoreData, 'token', '');
     yield put({type: 'signout-success'});
-    yield put({type: 'hide-loader'});
-    navigation.replace('Login');
+    navigation.reset({index: 0, routes: [{name: 'Login'}]});
   } else {
+    console.log('logout tidak ada token');
     yield call(secureStoreData, 'token', '');
     yield put({type: 'signout-success'});
-    navigation.replace('Login');
+    navigation.reset({index: 0, routes: [{name: 'Login'}]});
   }
 }
 

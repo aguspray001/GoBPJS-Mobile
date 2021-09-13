@@ -43,6 +43,7 @@ const Login = ({navigation}) => {
         mode="outlined"
         theme={{colors: {primary: 'green', underlineColor: 'transparent'}}}
         label="Password"
+        secureTextEntry={true}
         onChangeText={(e)=>setPassword(e)}
       />
       <View style={{alignSelf: 'center', marginTop: 40}}>

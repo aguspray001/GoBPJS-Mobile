@@ -1,16 +1,15 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {colors} from '../constant/colors';
 import {
-  ClaimForm,
   DetailHistory,
+  Help,
   History,
   Home,
   Login,
   Profile,
   Register,
-  Splash,
 } from '../screens';
 import BottomNavigator from './BottomMenu';
 
@@ -33,8 +32,8 @@ const MainApp = () => {
         }}
       />
       <Tab.Screen
-        name="ClaimForm"
-        component={ClaimForm}
+        name="Help"
+        component={Help}
         options={{
           tabBarLabel: 'Help',
           headerShown: false,
@@ -47,6 +46,11 @@ const MainApp = () => {
 const AuthStack = () => {
   return (
     <Stack.Navigator initialRouteName="Login">
+      {/* <Stack.Screen
+        name="Splash"
+        component={Splash}
+        options={{headerShown: false}}
+      /> */}
       <Stack.Screen
         name="Register"
         component={Register}
@@ -61,18 +65,11 @@ const AuthStack = () => {
   );
 };
 
-export const RootStack = () => {
-  const [signed, setSigned] = useState(false);
-  useEffect(async () => {
-    const token = await secureGetData('token');
-    // console.log("token route:", token)
-    if (token) {
-      setSigned(true);
-    }
-  }, []);
+export const RootStack = ({isLogin}) => {
+  console.log('rootstack:', isLogin);
   return (
     <Stack.Navigator
-      initialRouteName={signed === true ? 'Home' : 'Login'}
+      initialRouteName={isLogin === true ? 'Home' : 'Login'}
       screenOptions={{
         headerStyle: {
           backgroundColor: colors.primary,
@@ -82,11 +79,6 @@ export const RootStack = () => {
           fontWeight: 'bold',
         },
       }}>
-      {/* <Stack.Screen
-        name="Splash"
-        component={Splash}
-        options={{headerShown: false}}
-      /> */}
       <Stack.Screen
         name="Login"
         component={Login}
@@ -105,11 +97,6 @@ export const RootStack = () => {
       <Stack.Screen
         name="Profile"
         component={Profile}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="ClaimForm"
-        component={ClaimForm}
         options={{headerShown: false}}
       />
       <Stack.Screen

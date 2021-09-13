@@ -1,5 +1,6 @@
 import {call, select} from 'redux-saga/effects';
 import {showMessage} from '../../constant/alert';
+import { secureGetData } from '../../constant/storage';
 import {get, post} from './service';
 
 const processRespData = resp => {
@@ -14,8 +15,9 @@ const processRespData = resp => {
 
 export function* doPost(payload) {
   try {
-    const {token} = yield select(state => state.authReducer);
-    console.log("dopost:", token)
+    const token = yield call(secureGetData,'token');
+
+    // console.log("dopost:", token)
     const data = token !=='' ? {...payload, token} : payload;
     let resp = yield call(post, data);
     console.log("resp dopost:", resp)
