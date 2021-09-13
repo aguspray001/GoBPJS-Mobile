@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View, Text} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardHistory, Button} from '../components';
 import {colors} from '../constant/colors';
@@ -21,7 +21,7 @@ const History = ({navigation}) => {
           height="5.8%"
           onPress={()=>dispatch({type: 'request-get', payload: {navigation}})}
         />
-        {
+        { data?.length > 0 ?
           data?.map(list=>{
             return(
               <View style={styles.cardWrapper}>
@@ -37,7 +37,7 @@ const History = ({navigation}) => {
                 />
               </View>
             )
-          })
+          }): <Text style={{marginTop:200, fontSize:16, color:'grey'}}>Tidak ada catatan history</Text>
         }
       </View>
     </ScrollView>
