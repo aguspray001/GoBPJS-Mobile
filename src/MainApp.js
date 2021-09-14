@@ -16,9 +16,9 @@ const MainApp = () => {
 
   React.useEffect(async () => {
     const token = await secureGetData('token');
-    if (token==="") {
+    if (token==="" || token === null || token === undefined) {
         setSigned(false)
-    }if(token!==""){
+    }else{
         setSigned(true)
     }
   },[]);
