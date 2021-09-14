@@ -12,7 +12,7 @@ const CardHistory = ({
   title,
   navigation,
   date,
-  currentStatus,
+  data,
   desc,
   bp,
   width,
@@ -63,7 +63,7 @@ const CardHistory = ({
           height="4.8%"
           onPress={() =>
             navigation.replace('DetailHistory', {
-              currentStatus: currentStatus,
+              data: data,
             })
           }
         />

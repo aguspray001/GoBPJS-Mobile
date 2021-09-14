@@ -25,7 +25,7 @@ const stepIndicatorStyles = {
   currentStepLabelColor: '#3a931a',
 };
 
-export default function VerticalStepIndicator({currentStep, stepCount}) {
+export default function VerticalStepIndicator({currentStep, stepCount, data}) {
   return (
     <View style={styles.container}>
       <View style={styles.stepIndicator}>
@@ -37,6 +37,7 @@ export default function VerticalStepIndicator({currentStep, stepCount}) {
           labels={dummyData.data.map(item => item.title)}
           renderLabel={function (position, stepStatus, label, currentPosition) {
             const desc = dummyData.data.map(item => item.body);
+            const dataObat = data.medicines.map(item=>item.name);
             return (
               <>
                 <Text
@@ -57,7 +58,7 @@ export default function VerticalStepIndicator({currentStep, stepCount}) {
                     height: 200,
                     marginTop: 250,
                   }}>
-                  {desc[position.position]}
+                  {`${desc[position.position]} ${position.position===2?"Obat anda: "+dataObat?.join(', '):""}`}
                 </Text>
               </>
             );

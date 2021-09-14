@@ -39,7 +39,7 @@ const History = ({navigation}) => {
                   height="30%"
                   mb={10}
                   date={list?.createdAt}
-                  currentStatus={list?.status}
+                  data={list}
                   desc={list?.description}
                   bp={list?.bp}
                   navigation={navigation}

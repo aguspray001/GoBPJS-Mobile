@@ -4,8 +4,7 @@ import {VerticalStepIndicator} from '../components';
 import {colors} from '../constant/colors';
 
 const DetailHistory = ({route}) => {
-  const { currentStatus } = route.params;
-
+  const { data } = route.params;
   return (
     <View style={styles.container}>
       <Text
@@ -19,7 +18,7 @@ const DetailHistory = ({route}) => {
         Proses claim peserta BPJS:{' '}
       </Text>
 
-      <VerticalStepIndicator currentStep={currentStatus} stepCount={4} />
+      <VerticalStepIndicator currentStep={data.status} data={data} stepCount={4} />
     </View>
   );
 };

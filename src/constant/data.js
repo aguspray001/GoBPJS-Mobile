@@ -10,7 +10,7 @@ export default {
     },
     {
       title: 'Pengajuan Resep Obat',
-      body: 'Resep obat telah dikirim oleh faskes ke apotik terkait.',
+      body: 'Resep obat telah dikirim ke apotik terkait.',
     },
     {
       title: 'Pengambilan Obat',
