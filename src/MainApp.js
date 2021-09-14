@@ -3,6 +3,7 @@ import React from 'react';
 import {LogBox} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import {Provider as PaperProvider} from 'react-native-paper';
+import SplashScreen from 'react-native-splash-screen';
 import {useSelector} from 'react-redux';
 import {secureGetData} from './constant/storage';
 import {RootStack} from './navigation';
@@ -18,8 +19,10 @@ const MainApp = () => {
     const token = await secureGetData('token');
     if (token==="" || token === null || token === undefined) {
         setSigned(false)
+        SplashScreen.hide()
     }else{
         setSigned(true)
+        SplashScreen.hide()
     }
   },[]);
 
