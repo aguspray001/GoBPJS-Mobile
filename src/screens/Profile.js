@@ -14,12 +14,14 @@ const Profile = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const [user, setUser] = React.useState('');
   const [statusUser, setStatusUser] = React.useState(null);
+  const [qrcodeValue, setQrcodeValue] = React.useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
     secureGetData('token')
       .then(r => {
         const decodedToken = jwtDecode(r);
+        setQrcodeValue({id_user:decodedToken.user.id});
         setUser(decodedToken.user.name);
         setStatusUser(decodedToken.user.status);
       })
@@ -93,7 +95,7 @@ const Profile = ({navigation}) => {
           </Text>
           {statusUser === 1 && (
             <QRCode
-              value="Just some string value"
+              value={JSON.stringify(qrcodeValue)}
               logoSize={60}
               logoBackgroundColor="transparent"
             />

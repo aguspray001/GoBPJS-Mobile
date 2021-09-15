@@ -12,19 +12,16 @@ import {secureGetData} from '../constant/storage';
 const Home = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const [user, setUser] = React.useState('');
+  const [qrcodeValue, setQrcodeValue] = React.useState('');
   const [statusUser, setStatusUser] = React.useState(null);
 
-  useEffect(() => {
-    secureGetData('token')
-      .then(r => {
-        const decodedToken = jwtDecode(r);
-        setUser(decodedToken.user.name);
-        setStatusUser(decodedToken.user.status);
-      })
-      .catch(e => e);
+  useEffect(async () => {
+    const token = await secureGetData('token')
+        const decodedToken = jwtDecode(token);
+        setQrcodeValue({id_user:decodedToken?.user?.id});
+        setUser(decodedToken?.user?.name);
+        setStatusUser(decodedToken?.user?.status);
   }, []);
-
-  console.log(user);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -105,7 +102,7 @@ const Home = ({navigation}) => {
           </Text>
           {statusUser === 1 && (
             <QRCode
-              value="Just some string value"
+              value={JSON.stringify(qrcodeValue)}
               logoSize={60}
               logoBackgroundColor="transparent"
             />

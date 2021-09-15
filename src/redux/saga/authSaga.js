@@ -54,7 +54,7 @@ function* doSignUp({payload}) {
         nik,
         no_bpjs,
         role_id: 4, //role peserta
-        organization_id: 4, //waluyo
+        organization_id: 2, //waluyo
         status: 1, //aktif
       },
       url: signupUrl,
