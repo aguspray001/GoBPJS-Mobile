@@ -4,6 +4,7 @@ import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {Avatar, Modal, Portal} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
 import {useDispatch} from 'react-redux';
+import {Picker} from '@react-native-picker/picker';
 import {hospital2Bg} from '../assets/images';
 import {Button} from '../components';
 import Card from '../components/Card';
@@ -15,7 +16,9 @@ const Profile = ({navigation}) => {
   const [user, setUser] = React.useState('');
   const [statusUser, setStatusUser] = React.useState(null);
   const [qrcodeValue, setQrcodeValue] = React.useState('');
+  const [selectedFaskes, setSelectedFaskes] = React.useState(0);
   const dispatch = useDispatch();
+  const pickerRef = React.useRef();
 
   useEffect(() => {
     secureGetData('token')
@@ -68,6 +71,22 @@ const Profile = ({navigation}) => {
         </View>
         <View style={styles.cardWrapper}>
           <Card width="27%" height="14%" title="Barcode" onPress={showModal} />
+          <View style={{alignSelf: 'center', backgroundColor:'white', borderRadius:10, elevation:5}}>
+            <Picker
+              enabled={true}
+              mode="dialog"
+              style={{width:200, height:40}}
+              selectedValue={selectedFaskes}
+              onValueChange={(itemValue, itemIndex) => {
+                setSelectedFaskes(itemValue)
+                dispatch({type:'user-update', payload:{id:qrcodeValue?.id_user, organization_id:itemValue}})
+              }
+              }>
+              <Picker.Item label="Change Faskes" value={0} />
+              <Picker.Item label="Rs. Rizani" value={1} />
+              <Picker.Item label="Rs. Waluyo" value={2} />
+            </Picker>
+          </View>
         </View>
       </ImageBackground>
       <View style={{alignSelf: 'center', position: 'absolute', bottom: '5%'}}>
@@ -111,7 +130,6 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#ffff',
   },
   hero: {
