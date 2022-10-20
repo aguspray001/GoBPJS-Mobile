@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,21 +7,21 @@ import {
   View,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {IconSplash} from '../assets/icon';
 import {Button} from '../components';
 import {colors} from '../constant/colors';
-import { secureGetData } from '../constant/storage';
+import {secureGetData} from '../constant/storage';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleLogin = () => {
-    dispatch({type: 'sign-in', payload:{email, password, navigation}})
-  }
+    dispatch({type: 'sign-in', payload: {email, password, navigation}});
+  };
 
   return (
     <View style={styles.container}>
@@ -33,18 +33,34 @@ const Login = ({navigation}) => {
         style={styles.textInput}
         outlineColor={colors.primary}
         mode="outlined"
-        theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
+        theme={{
+          colors: {
+            primary: 'green',
+            underlineColor: 'transparent',
+            text: '#000',
+            background: '#fff',
+            placeholder: colors.primary,
+          },
+        }}
         label="Email"
-        onChangeText={(e)=>setEmail(e)}
+        onChangeText={e => setEmail(e)}
       />
       <TextInput
         style={styles.textInput}
         outlineColor={colors.primary}
         mode="outlined"
-        theme={{colors: {primary: 'green', underlineColor: 'transparent', text:'#000', background:'#fff', placeholder:colors.primary}}}
+        theme={{
+          colors: {
+            primary: 'green',
+            underlineColor: 'transparent',
+            text: '#000',
+            background: '#fff',
+            placeholder: colors.primary,
+          },
+        }}
         label="Password"
         secureTextEntry={true}
-        onChangeText={(e)=>setPassword(e)}
+        onChangeText={e => setPassword(e)}
       />
       <View style={{alignSelf: 'center', marginTop: 40}}>
         <Button

@@ -14,7 +14,7 @@ export default {
     },
     {
       title: 'Pengambilan Obat',
-      body: 'Pengambilan obat dapat dilakukan ke apotik terkait',
+      body: 'Obat anda sedang diantarkan oleh petugas PeduliLindungi',
     },
   ],
 };

@@ -17,21 +17,28 @@ const CardHistory = ({
   bp,
   width,
   height,
-  mb
+  mb,
 }) => {
   const dateFix = moment(date).format('MM/DD/YYYY (dddd)');
   return (
     <View style={styles.container(width, height, mb)}>
       <View style={styles.header}>
         <Text style={{fontSize: 16, color: 'white', fontWeight: '500'}}>
-          No. saat ini: 50
+          No. saat ini: 5
         </Text>
         <Text style={{fontSize: 16, color: 'white', fontWeight: '500'}}>
-          No. Anda: 8
+          No. Anda: 12
         </Text>
       </View>
       <View styles={styles.content}>
-        <Text style={{fontSize: 16, fontWeight: '500', marginBottom: 10, marginLeft:10, marginTop:10}}>
+        <Text
+          style={{
+            fontSize: 16,
+            fontWeight: '500',
+            marginBottom: 10,
+            marginLeft: 10,
+            marginTop: 10,
+          }}>
           {title}
         </Text>
         <View style={styles.textWrapper}>
@@ -78,7 +85,7 @@ const styles = StyleSheet.create({
   container: (width, height, mb) => ({
     flex: 1,
     padding: 5,
-    marginBottom:mb,
+    marginBottom: mb,
     width: wp(width),
     height: hp(height),
     backgroundColor: '#ffff',
@@ -97,7 +104,7 @@ const styles = StyleSheet.create({
     width: wp('80%'),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft:10
+    marginLeft: 10,
   },
   valueWrapper: {width: wp('50%'), flexDirection: 'row'},
   header: {

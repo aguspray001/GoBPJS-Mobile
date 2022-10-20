@@ -1,5 +1,5 @@
 import jwtDecode from 'jwt-decode';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {Avatar, Modal, Portal} from 'react-native-paper';
 import QRCode from 'react-native-qrcode-svg';
@@ -13,6 +13,8 @@ const Home = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const [user, setUser] = React.useState('');
   const [statusUser, setStatusUser] = React.useState(null);
+  const [userId, setUserId] = useState(null);
+  const [decodedUser, setDecodedUser] = useState(null);
 
   useEffect(() => {
     secureGetData('token')
@@ -20,11 +22,11 @@ const Home = ({navigation}) => {
         const decodedToken = jwtDecode(r);
         setUser(decodedToken.user.name);
         setStatusUser(decodedToken.user.status);
+        setUserId(decodedToken.user.id);
+        setDecodedUser(decodedToken);
       })
       .catch(e => e);
   }, []);
-
-  console.log(user);
 
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -105,7 +107,7 @@ const Home = ({navigation}) => {
           </Text>
           {statusUser === 1 && (
             <QRCode
-              value="Just some string value"
+              value={JSON.stringify({user: {id: userId}})}
               logoSize={60}
               logoBackgroundColor="transparent"
             />
